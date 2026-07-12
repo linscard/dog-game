@@ -1,0 +1,140 @@
+/* 18h30 — estilo retrô */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --fundo: #1a1c2c;
+  --painel: #29366f;
+  --painel2: #333c57;
+  --texto: #f4f4f4;
+  --texto2: #94b0c2;
+  --amarelo: #ffcd75;
+  --verde: #a7f070;
+  --vermelho: #b13e53;
+  --azul: #41a6f6;
+}
+
+html, body {
+  height: 100%;
+  background: var(--fundo);
+  color: var(--texto);
+  font-family: "Courier New", ui-monospace, monospace;
+  overflow: hidden;
+}
+
+#app {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+#tela {
+  width: 960px;
+  height: 672px;
+  max-width: 98vw;
+  max-height: 96vh;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  background: #000;
+  border: 4px solid var(--painel2);
+  box-shadow: 0 0 40px rgba(0,0,0,.6);
+}
+
+/* ---- Telas de UI (menu, briefing, resultado) ---- */
+#ui .tela-ui {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(16, 18, 34, .92);
+}
+
+.caixa {
+  width: min(680px, 94vw);
+  max-height: 92vh;
+  overflow-y: auto;
+  background: var(--painel);
+  border: 4px solid var(--painel2);
+  padding: 28px 32px;
+  text-align: center;
+  image-rendering: pixelated;
+}
+
+.caixa h1 {
+  font-size: 64px;
+  letter-spacing: 4px;
+  color: var(--amarelo);
+  text-shadow: 4px 4px 0 #000;
+}
+
+.caixa h2 { font-size: 28px; color: var(--amarelo); text-shadow: 3px 3px 0 #000; margin-bottom: 8px; }
+.caixa h3 { font-size: 16px; color: var(--texto2); margin: 14px 0 6px; text-transform: uppercase; letter-spacing: 2px; }
+.caixa p  { font-size: 14px; line-height: 1.5; color: var(--texto); }
+.caixa .sub { color: var(--texto2); font-size: 14px; margin-bottom: 18px; }
+
+.btn {
+  display: inline-block;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: bold;
+  color: var(--texto);
+  background: var(--painel2);
+  border: 3px solid #566c86;
+  border-bottom-width: 5px;
+  padding: 10px 22px;
+  margin: 6px;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.btn:hover { background: #3b5dc9; border-color: #73eff7; }
+.btn:active { border-bottom-width: 3px; transform: translateY(2px); }
+.btn.destaque { background: var(--vermelho); border-color: #ef7d57; }
+.btn.destaque:hover { background: #d14e63; }
+.btn.mini { font-size: 12px; padding: 6px 12px; }
+.btn.ativo { background: #38b764; border-color: var(--verde); }
+.btn:disabled { opacity: .35; cursor: default; }
+.btn:disabled:hover { background: var(--painel2); border-color: #566c86; }
+
+.cartoes { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin: 16px 0; }
+.cartao {
+  width: 260px;
+  background: var(--painel2);
+  border: 3px solid #566c86;
+  padding: 18px 14px;
+  cursor: pointer;
+  text-align: center;
+}
+.cartao:hover { border-color: var(--amarelo); background: #3d466b; }
+.cartao .icone { font-size: 44px; }
+.cartao h3 { color: var(--amarelo); margin: 6px 0 4px; }
+.cartao p { font-size: 12px; color: var(--texto2); }
+.cartao .estrelas { color: var(--amarelo); font-size: 14px; margin-top: 8px; }
+
+.lista-fases { display: flex; flex-direction: column; gap: 10px; margin: 14px 0; }
+.fase-item {
+  display: flex; align-items: center; justify-content: space-between;
+  background: var(--painel2); border: 3px solid #566c86;
+  padding: 12px 16px; cursor: pointer; text-align: left;
+}
+.fase-item:hover { border-color: var(--amarelo); }
+.fase-item.travada { opacity: .45; cursor: default; }
+.fase-item.travada:hover { border-color: #566c86; }
+.fase-item .nome { font-weight: bold; font-size: 15px; }
+.fase-item .cidade { font-size: 12px; color: var(--texto2); }
+.fase-item .estrelas { color: var(--amarelo); font-size: 16px; }
+
+.linhas { text-align: left; margin: 10px auto; max-width: 480px; }
+.linhas li { font-size: 14px; line-height: 1.8; list-style: none; }
+.linhas li::before { content: "▸ "; color: var(--amarelo); }
+.linhas li.ok::before { content: "✔ "; color: var(--verde); }
+.linhas li.falha::before { content: "✘ "; color: var(--vermelho); }
+
+.resultado-estrelas { font-size: 52px; letter-spacing: 8px; color: var(--amarelo); text-shadow: 3px 3px 0 #000; margin: 10px 0; }
+.resultado-pontos { font-size: 22px; color: var(--verde); margin-bottom: 8px; }
+.novidade { background: #38b764; color: #06250f; font-size: 13px; font-weight: bold; padding: 6px 10px; margin: 4px; display: inline-block; }
+
+.rodape { margin-top: 18px; font-size: 11px; color: var(--texto2); }
+.escondido { display: none !important; }

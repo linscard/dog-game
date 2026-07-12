@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>18h30</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="app">
+  <canvas id="tela" width="480" height="336"></canvas>
+  <div id="ui"></div>
+</div>
+
+<!-- Núcleo -->
+<script src="js/core/util.js"></script>
+<script src="js/core/bus.js"></script>
+<script src="js/core/save.js"></script>
+<script src="js/core/input.js"></script>
+
+<!-- Sistemas do motor (GAD §4) -->
+<script src="js/engine/world.js"></script>
+<script src="js/engine/movement.js"></script>
+<script src="js/engine/resources.js"></script>
+<script src="js/engine/ai.js"></script>
+<script src="js/engine/worldevents.js"></script>
+<script src="js/engine/objectives.js"></script>
+<script src="js/engine/scoring.js"></script>
+<script src="js/engine/render.js"></script>
+<script src="js/engine/hud.js"></script>
+<script src="js/engine/game.js"></script>
+
+<!-- Campanhas (GAD §8) -->
+<script src="js/campaigns/dogs.js"></script>
+<script src="js/campaigns/samu.js"></script>
+
+<script src="js/main.js"></script>
+</body>
+</html>
