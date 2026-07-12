@@ -1,38 +1,38 @@
 name: Publicar no GitHub Pages
 
+# O Pages deste repositório serve a branch gh-pages (modo "deploy from
+# branch"). Este workflow roda os testes e republica o site a cada push.
 on:
   push:
     branches: [claude/18h30-gameplay-architecture-zb6ak6]
   workflow_dispatch:
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
 
 concurrency:
   group: pages
   cancel-in-progress: true
 
 jobs:
-  deploy:
+  publicar:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
 
       - name: Testes de fumaça
         run: node tools/teste-fumaca.js
 
-      - uses: actions/configure-pages@v5
-        with:
-          enablement: true
-
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: .
-
-      - id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Publica na branch gh-pages
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          SITE=$(mktemp -d)
+          cp -r index.html css js "$SITE"/
+          touch "$SITE/.nojekyll"
+          git checkout --orphan gh-pages
+          git rm -rf -q .
+          cp -r "$SITE"/. .
+          git add -A
+          git commit -m "Publica site (deploy automático)"
+          git push -f origin gh-pages
