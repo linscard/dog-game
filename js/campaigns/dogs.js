@@ -468,14 +468,20 @@ G.campanhas = G.campanhas || {};
         ctx.fill();
       }
 
-      // fontes de água (sem território)
+      // fontes de água (sem território): bacia grande com água animada
       for (const a of world.aguas) {
         if (territorioEm(world, a.x, a.y)) continue;
         const px = a.x * T, py = a.y * T;
+        ctx.fillStyle = '#94b0c2';
+        ctx.fillRect(px + 1, py + 4, 22, 18);   // borda da bacia
         ctx.fillStyle = '#566c86';
-        ctx.fillRect(px + 6, py + 8, 12, 10);
-        ctx.fillStyle = '#73eff7';
-        ctx.fillRect(px + 8, py + 10, 8, 5);
+        ctx.fillRect(px + 3, py + 6, 18, 14);   // parede interna
+        ctx.fillStyle = '#41a6f6';
+        ctx.fillRect(px + 4, py + 7, 16, 12);   // água
+        ctx.fillStyle = '#73eff7';               // reflexos que ondulam
+        const onda = ((world.decorrido * 3) | 0) % 3;
+        ctx.fillRect(px + 6 + onda * 2, py + 9, 6, 2);
+        ctx.fillRect(px + 12 - onda * 2, py + 14, 5, 2);
       }
 
       // territórios: mancha do dono + objeto
