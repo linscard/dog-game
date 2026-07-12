@@ -215,6 +215,11 @@ G.campanhas = G.campanhas || {};
 
     ajudaControles: 'Setas/WASD move · ESPAÇO (segure) marca território · SHIFT corre · P pausa',
 
+    botoesTouch: [
+      { code: 'Space', rotulo: 'MARCAR' },
+      { code: 'ShiftLeft', rotulo: 'CORRER' }
+    ],
+
     upgrades: [
       { id: 'bexiga', nome: 'Bexiga de Aço', desc: '+30% de urina máxima', estrelasNec: 2,
         aplicar(w) { w.player.res.urina.max = Math.round(w.player.res.urina.max * 1.3); w.player.res.urina.v = w.player.res.urina.max; } },

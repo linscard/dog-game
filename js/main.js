@@ -101,7 +101,9 @@ var G = globalThis.G || (globalThis.G = {});
       '<h3>Objetivos</h3><ul class="linhas">' + objetivos + '</ul>' +
       (eventos ? '<h3>Previsão para hoje</h3><p>' + eventos + '</p>' : '') +
       (melhorias ? '<h3>Melhorias ativas</h3><div>' + melhorias + '</div>' : '') +
-      '<h3>Controles</h3><p>' + c.ajudaControles + '</p>' +
+      '<h3>Controles</h3><p>' + c.ajudaControles +
+      (G.touch && G.touch.disponivel
+        ? '<br>No celular: direcional à esquerda, botões de ação à direita.' : '') + '</p>' +
       '<div style="margin-top:16px">' +
       '<button class="btn destaque" id="btn-comecar">Começar</button>' +
       '<button class="btn" id="btn-voltar">Voltar</button></div>'
@@ -172,6 +174,7 @@ var G = globalThis.G || (globalThis.G = {});
   function boot() {
     G.save.carregar();
     G.input.init();
+    G.touch.init();
 
     const canvas = document.getElementById('tela');
     const ctx = canvas.getContext('2d');
@@ -188,6 +191,7 @@ var G = globalThis.G || (globalThis.G = {});
       ultimo = agora;
       G.jogo.update(dt);
       G.input.fimDoFrame();
+      G.touch.update();
       G.jogo.desenhar(ctx);
       requestAnimationFrame(frame);
     }

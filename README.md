@@ -8,7 +8,8 @@ pacientes. Implementação de referência do Documento de Arquitetura de Gamepla
 
 ## Como jogar
 
-Abra `index.html` em qualquer navegador moderno. Sem build, sem dependências.
+Jogue online em https://linscard.github.io/dog-game/ ou abra `index.html`
+em qualquer navegador moderno. Sem build, sem dependências.
 
 | Tecla | Cachorros | SAMU |
 |---|---|---|
@@ -17,6 +18,12 @@ Abra `index.html` em qualquer navegador moderno. Sem build, sem dependências.
 | SHIFT (segurar) | Corre (gasta fôlego) | Sirene (fura o trânsito) |
 | E | — | Toma café (turbo) |
 | P / ESC | Pausa | Pausa |
+
+**No celular** os controles aparecem na tela durante a partida: direcional à
+esquerda (arraste o dedo), botões de ação à direita (definidos por campanha —
+MARCAR/CORRER nos Cachorros, SIRENE/CAFÉ no SAMU), pausa no canto superior.
+Tudo vira tecla virtual no mesmo sistema de entrada, então motor e campanhas
+não distinguem toque de teclado.
 
 ## Validação do GAD (e o que foi assumido)
 

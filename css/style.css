@@ -19,6 +19,8 @@ html, body {
   color: var(--texto);
   font-family: "Courier New", ui-monospace, monospace;
   overflow: hidden;
+  overscroll-behavior: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 #app {
@@ -30,15 +32,16 @@ html, body {
 }
 
 #tela {
-  width: 960px;
-  height: 672px;
-  max-width: 98vw;
-  max-height: 96vh;
+  /* 960×672 = proporção 10:7; escala sem distorcer em qualquer tela */
+  width: min(960px, 98vw, calc(96vh * 10 / 7));
+  height: auto;
+  aspect-ratio: 10 / 7;
   image-rendering: pixelated;
   image-rendering: crisp-edges;
   background: #000;
   border: 4px solid var(--painel2);
   box-shadow: 0 0 40px rgba(0,0,0,.6);
+  touch-action: none;
 }
 
 /* ---- Telas de UI (menu, briefing, resultado) ---- */
@@ -138,3 +141,88 @@ html, body {
 
 .rodape { margin-top: 18px; font-size: 11px; color: var(--texto2); }
 .escondido { display: none !important; }
+
+/* ---- Controle de toque (celular) ---- */
+#touch {
+  position: fixed;
+  inset: 0;
+  z-index: 5;
+  display: none;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+#touch.visivel { display: block; }
+#touch > * { pointer-events: auto; touch-action: none; }
+
+#dpad {
+  position: absolute;
+  left: max(3vw, env(safe-area-inset-left));
+  bottom: max(4vh, env(safe-area-inset-bottom));
+  width: min(38vmin, 190px);
+  height: min(38vmin, 190px);
+  border-radius: 50%;
+  background: rgba(41, 54, 111, .35);
+  border: 3px solid rgba(148, 176, 194, .45);
+}
+#dpad .seta {
+  position: absolute;
+  color: rgba(244, 244, 244, .55);
+  font-size: 20px;
+  transform: translate(-50%, -50%);
+}
+#dpad .seta.cima  { left: 50%; top: 16%; }
+#dpad .seta.baixo { left: 50%; top: 84%; }
+#dpad .seta.esq   { left: 16%; top: 50%; }
+#dpad .seta.dir   { left: 84%; top: 50%; }
+#dpad[data-dir="ArrowUp"] .seta.cima,
+#dpad[data-dir="ArrowDown"] .seta.baixo,
+#dpad[data-dir="ArrowLeft"] .seta.esq,
+#dpad[data-dir="ArrowRight"] .seta.dir { color: var(--amarelo); }
+
+#botoes-acao {
+  position: absolute;
+  right: max(3vw, env(safe-area-inset-right));
+  bottom: max(4vh, env(safe-area-inset-bottom));
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  align-items: flex-end;
+}
+.btn-acao {
+  width: min(20vmin, 84px);
+  height: min(20vmin, 84px);
+  border-radius: 50%;
+  background: rgba(59, 93, 201, .4);
+  border: 3px solid rgba(148, 176, 194, .5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: bold;
+  color: var(--texto);
+  letter-spacing: 1px;
+}
+.btn-acao.apertado, .btn-topo.apertado {
+  background: rgba(255, 205, 117, .55);
+  border-color: var(--amarelo);
+  color: #10121f;
+}
+
+.btn-topo {
+  position: absolute;
+  top: max(8px, env(safe-area-inset-top));
+  width: 42px;
+  height: 42px;
+  border-radius: 8px;
+  background: rgba(41, 54, 111, .5);
+  border: 2px solid rgba(148, 176, 194, .5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 17px;
+  color: var(--texto);
+}
+#btn-pausa { right: 8px; }
+#btn-sair { right: 58px; display: none; }
+#touch.pausado #btn-sair { display: flex; }

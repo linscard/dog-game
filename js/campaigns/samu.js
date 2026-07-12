@@ -130,6 +130,11 @@ G.campanhas = G.campanhas || {};
 
     ajudaControles: 'Setas/WASD dirige · SHIFT (segure) sirene · E toma café · P pausa',
 
+    botoesTouch: [
+      { code: 'ShiftLeft', rotulo: 'SIRENE' },
+      { code: 'KeyE', rotulo: 'CAFÉ' }
+    ],
+
     upgrades: [
       { id: 'cafe2', nome: 'Café Duplo', desc: '+1 dose de café por plantão', estrelasNec: 2,
         aplicar(w) { w.player.res.cafe.max = 3; w.player.res.cafe.v = 3; } },

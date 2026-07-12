@@ -1,5 +1,7 @@
-// input.js — teclado. Direção usa a última tecla pressionada ainda segurada,
-// o que dá o controle "respondão" típico de jogos de grade.
+// input.js — teclado + teclas virtuais (controle de toque). Direção usa a
+// última tecla pressionada ainda segurada, o que dá o controle "respondão"
+// típico de jogos de grade. O touch sintetiza as mesmas teclas, então as
+// campanhas não precisam saber de onde veio o comando.
 var G = globalThis.G || (globalThis.G = {});
 
 G.input = {
@@ -18,21 +20,28 @@ G.input = {
     if (typeof window === 'undefined') return;
     window.addEventListener('keydown', (ev) => {
       if (this.DIRECOES[ev.code] || ev.code === 'Space') ev.preventDefault();
-      if (!this.seguradas[ev.code]) this.toques[ev.code] = true;
-      this.seguradas[ev.code] = true;
-      if (this.DIRECOES[ev.code] && !this.pilhaDir.includes(ev.code)) {
-        this.pilhaDir.push(ev.code);
-      }
+      this.virtualDown(ev.code);
     });
-    window.addEventListener('keyup', (ev) => {
-      this.seguradas[ev.code] = false;
-      const i = this.pilhaDir.indexOf(ev.code);
-      if (i >= 0) this.pilhaDir.splice(i, 1);
-    });
+    window.addEventListener('keyup', (ev) => this.virtualUp(ev.code));
     window.addEventListener('blur', () => {
       this.seguradas = {};
       this.pilhaDir = [];
     });
+  },
+
+  // pressiona/solta uma tecla por código — usado pelo teclado E pelo touch
+  virtualDown(code) {
+    if (!this.seguradas[code]) this.toques[code] = true;
+    this.seguradas[code] = true;
+    if (this.DIRECOES[code] && !this.pilhaDir.includes(code)) {
+      this.pilhaDir.push(code);
+    }
+  },
+
+  virtualUp(code) {
+    this.seguradas[code] = false;
+    const i = this.pilhaDir.indexOf(code);
+    if (i >= 0) this.pilhaDir.splice(i, 1);
   },
 
   direcao() {
